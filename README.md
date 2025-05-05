@@ -6,7 +6,6 @@
 
 ```bash
 https://github.com/CristopherMartarello/prova-native-01.git
-cd ProvaGerenciamentoLivros
 ```
 
 ### 2. Instalar as dependências
