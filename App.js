@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { Provider as PaperProvider } from 'react-native-paper';
+import { NativeBaseProvider } from 'native-base';
+import { ThemeProvider, useThemeContext } from './contexts/ThemeContext';
+import BottomTabs from './navigation/BottomTabs';
+import { store } from './redux/store';
+import { Provider } from 'react-redux';
 
-export default function App() {
+function Main() {
+  const { theme } = useThemeContext();
+  const [books, setBooks] = useState([]);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <PaperProvider theme={theme}>
+        <NativeBaseProvider>
+          <NavigationContainer theme={theme}>
+            <BottomTabs books={books} setBooks={setBooks} />
+          </NavigationContainer>
+        </NativeBaseProvider>
+      </PaperProvider>
+    </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <ThemeProvider>
+      <Main />
+    </ThemeProvider>
+  );
+}
